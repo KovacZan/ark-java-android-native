@@ -3,21 +3,15 @@ apply plugin: 'com.android.application'
 //apply plugin:'java'
 apply plugin:'maven'
 apply plugin:'maven-publish'
-
+//apply plugin: 'java'
+//apply plugin: 'application'
 android {
 
-    splits {
-        abi {
-            enable true
-            reset()
-            include 'x86', 'x86_64', 'armeabi', 'armeabi-v7a', 'mips', 'mips64', 'arm64-v8a'
-            universalApk false
-        }
 
-    }
+
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.example.myapplication"
+        //applicationId "com.example.myapplication"
         minSdkVersion 26
         targetSdkVersion 28
         versionCode 1
@@ -29,6 +23,36 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    packagingOptions {
+        exclude 'lib/getLibs.ps1'
+        exclude 'lib/getLibs.sh'
+        exclude 'lib/gson-2.2.2.jar'
+        exclude 'lib/client'
+        exclude 'lib/crypto'
+    }
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'x86', 'armeabi-v7a'
+            universalApk true
+        }
+    }
+
+    dataBinding {
+        enabled true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude 'lib/x86_64/darwin/libscrypt.dylib'
+        exclude 'lib/x86_64/freebsd/libscrypt.so'
+        exclude 'lib/x86_64/linux/libscrypt.so'
     }
 }
 
@@ -42,13 +66,16 @@ dependencies {
 
 
 
-    implementation group: 'org.arkecosystem', name: 'client', version: '0.1.3'
-    implementation group: 'org.arkecosystem', name: 'crypto', version: '0.1.3'
+   implementation group: 'org.arkecosystem', name: 'client', version: '0.1.3'
+   implementation group: 'org.arkecosystem', name: 'crypto', version: '0.1.3'
 
     // This dependency is found on compile classpath of this component and consumers.
     implementation 'com.google.guava:guava:27.0.1-jre'
 
-    implementation group: 'org.bitcoinj', name: 'bitcoinj-core', version: '0.14.7'
-    implementation group: 'com.madgag.spongycastle', name: 'core', version: '1.54.0.0'
 
+
+
+
+    //api group: 'commons-io', name: 'commons-io', version: '2.5'
+    //api group: 'commons-cli', name: 'commons-cli', version: '1.4'
 }

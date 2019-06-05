@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 import java.io.IOException;
+import java.security.spec.ECField;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,20 +19,28 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    ParkTransaction.CreateParkTransaction(10000, "PFfkYKD8uvXk7M7FY6kBTZdeWLpRcHABp3", "memory average vital away document demise nest glow mosquito mammal hold replace");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
+                    new Thread()
+                    {
+                        public void run() {
+                            try {
+                                ParkTransaction.CreateParkTransaction(10000, "PFfkYKD8uvXk7M7FY6kBTZdeWLpRcHABp3", "memory average vital away document demise nest glow mosquito mammal hold replace");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }.start();
+
+
             }
         });
     }
 
-    public static void main(String[] args) {
-        try {
-            ParkTransaction.CreateParkTransaction(10000, "PFfkYKD8uvXk7M7FY6kBTZdeWLpRcHABp3", "memory average vital away document demise nest glow mosquito mammal hold replace");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    //public static void main(String[] args) {
+    //    try {
+    //        ParkTransaction.CreateParkTransaction(10000, "PFfkYKD8uvXk7M7FY6kBTZdeWLpRcHABp3", "memory average vital away document demise nest glow mosquito mammal hold replace");
+    //    } catch (IOException e) {
+    //        e.printStackTrace();
+    //    }
+    //}
 }
